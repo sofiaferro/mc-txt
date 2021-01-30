@@ -1,9 +1,17 @@
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+
+body {
+  font-family: 'Press Start 2P', cursive;
+}
+
 .App {
-  text-align: center;
+  display: flex;
+  flex-direction: column;
+  margin-top: 2em;
 }
 
 .App-logo {
-  height: 40vmin;
+  height: 40vh;
   pointer-events: none;
 }
 
@@ -35,4 +43,16 @@
   to {
     transform: rotate(360deg);
   }
+}
+
+
+
+@media screen and (min-width: 400px) {
+
+  .App {
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+  }
+
 }

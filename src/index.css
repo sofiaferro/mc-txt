@@ -1,8 +1,46 @@
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+
+.swal2-title {
+  font-size: 4em;
+}
+
+.nes-dialog {
+  overflow-y: scroll;
+  position: absolute;
+  right: 0;
+  left: 0;
+  top: 100px;
+  display: block;
+  width: -moz-fit-content;
+  width: -webkit-fit-content;
+  width: fit-content;
+  padding: 1em;
+  margin: auto;
+  color: #000;
+  background: #fff;
+  border: solid;
+      border-top-width: medium;
+      border-right-width: medium;
+      border-bottom-width: medium;
+      border-left-width: medium;
+  width: 90%;
+}
+
+.ReactModal__Overlay--after-open {
+  overflow-y: scroll;
+}
+
+.ReactModal__Body--open {
+  overflow-x: hidden;  
+}
+
+#dialog-default {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
 body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
@@ -10,4 +48,29 @@ body {
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
+}
+
+.Data {
+    display: flex;
+    flex-direction: column;
+}
+
+h1 {
+    margin:0.5rem;
+    margin-top: 2rem;
+    align-self: center;
+}
+
+h3 {
+    margin:0.5rem;
+    margin-top: 2rem;
+    align-self: start;
+}
+
+@media screen and (min-width: 400px) {
+
+  .nes-dialog {
+      width: 50%;
+  }
+
 }
