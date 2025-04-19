@@ -87,7 +87,7 @@ export default function Menu({ currentStep, setCurrentStep }) {
                     <p>¡Hola! Me llamo Sofía Ferro, soy Desarrolladora Web Full Stack. <br /> Mc-txt es un generador de texto que surgió a partir del taller "Escribir como máquinas", brindado por Matías Buonfrate y Gerardo Montoya en el Cultural Morán (oct, 2020). <br /> A partir de búsquedas en la API de Wikipedia, mc-txt recibe extractos relacionados a los inputs y utiliza cadenas de Markov para generar texto nuevo.<br /> Si tenés dudas o sugerencias, podés contactarme por cualquiera de estas vías:</p>
                     <div className='icons-container'>
                         <i className="nes-icon instagram is-medium" onClick={() => { window.open("https://instagram.com/ferrosof", "_blank"); }}></i>
-                        <i className="nes-icon gmail is-medium" onClick={() => { window.open("mailto:sofiferro89@gmail.com") }}></i>
+                        <i className="nes-icon gmail is-medium" onClick={() => { window.open("mailto:svf.inbox@gmail.com") }}></i>
                     </div>
                     <div className="dialog-menu">
                         <button className="nes-btn is-warning" onClick={() => setShowAbout(false)}>ok</button>
