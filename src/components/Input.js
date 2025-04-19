@@ -89,23 +89,29 @@ export default function Input({ order, onNext, setCurrentStep, currentStep, curr
             return input;
         }
 
-        async function getExtracts(input) {
-            var extracts = [];
+async function getExtracts(input) {
+    let extracts = [];
 
-            var url = `https://es.wikipedia.org/api/rest_v1/page/related/${input}`;
-            await fetch(url)
-                .then(res => res.json())
-                .then(data => {
-                    for (var i = 0; i < 20; i++) {
-                        var item = data.pages[i].extract
-                        extracts.push(item);
-                    }
-                    extracts = extracts.join(' ');
-                })
-                .catch(err => console.log(err));
-                return extracts;
+    const proxyUrl = 'https://corsproxy.io/?';
+    const targetUrl = `https://es.wikipedia.org/api/rest_v1/page/related/${input}`;
+    const url = proxyUrl + encodeURIComponent(targetUrl);
 
+    try {
+        const res = await fetch(url);
+        const data = await res.json();
+
+        for (let i = 0; i < 20 && i < data.pages.length; i++) {
+            let item = data.pages[i].extract;
+            if (item) extracts.push(item);
         }
+
+        return extracts.join(' ');
+    } catch (err) {
+        console.log(err);
+        return '';
+    }
+}
+
 
         function generateChain(input) {
             var ngrams = {};
