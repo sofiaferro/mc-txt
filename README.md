@@ -16,8 +16,8 @@ La lógica de generación vive en `src/lib/markov.js` y el acceso a Wikipedia en
 ## Desarrollo
 
 ```bash
-npm install
-npm run dev      # servidor de desarrollo
-npm test         # tests (Vitest)
-npm run build    # build de producción en dist/
+pnpm install
+pnpm dev         # servidor de desarrollo
+pnpm test        # tests (Vitest)
+pnpm build       # build de producción en dist/
 ```
