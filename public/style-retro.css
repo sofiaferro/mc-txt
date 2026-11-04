@@ -80,6 +80,31 @@ body {
     width: 100%;
 }
 
+.structure-hint {
+    margin-top: 1em;
+    margin-bottom: 0;
+    font-size: 10px;
+}
+
+/* Cada línea del poema es una línea en pantalla: la letra se achica
+   según la línea más larga (--chars) en lugar de partirla. Press Start 2P
+   es monoespaciada con glifos de 1em. Por debajo de 10px no se lee, así
+   que ahí la línea se parte con sangría, como un verso largo. */
+#typewriter {
+    container-type: inline-size;
+}
+
+#markovResults {
+    font-size: max(10px, min(1em, calc(100cqi / (var(--chars) + 1))));
+    line-height: 1.8;
+}
+
+#markovResults .verse {
+    display: block;
+    padding-left: 2em;
+    text-indent: -2em;
+}
+
 .badge {
     font-size: 10px;
 }

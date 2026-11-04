@@ -73,7 +73,7 @@ export default function Content({ setStep, words, lines, setWords, setLines, onC
       <div className="div-container nes-container with-title">
         <p className="title">estructura</p>
         <div>
-          <label>palabras:</label>
+          <label htmlFor="words">palabras por línea:</label>
           <input
             id="words"
             className="structure nes-input"
@@ -83,7 +83,7 @@ export default function Content({ setStep, words, lines, setWords, setLines, onC
           />
         </div>
         <div className="div-container">
-          <label>líneas:</label>
+          <label htmlFor="lines">cantidad de líneas:</label>
           <input
             id="lines"
             className="structure nes-input"
@@ -92,6 +92,11 @@ export default function Content({ setStep, words, lines, setWords, setLines, onC
             placeholder="?????"
           />
         </div>
+        <p className="structure-hint">
+          {isValid(words) && isValid(lines)
+            ? `${words} × ${lines} = poema de ${words * lines} palabras`
+            : 'ej: 3 × 10 = poema de 30 palabras'}
+        </p>
       </div>
       <div className="controls">
         <label>

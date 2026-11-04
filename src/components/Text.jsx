@@ -3,6 +3,12 @@ import '../index.css';
 import Modal from 'react-modal';
 import { pressable } from '../lib/a11y';
 
+// Largo de la línea más larga, para achicar la letra en vez de que
+// el navegador parta la línea en dos (hasta un mínimo legible).
+function longestLine(text) {
+  return Math.max(1, ...(text || '').split('\n').map((line) => line.length));
+}
+
 export default function Text({ text, setStep, onRegenerate }) {
   const [showNoText, setShowNoText] = useState(false);
   const [showCopied, setShowCopied] = useState(false);
@@ -50,8 +56,12 @@ export default function Text({ text, setStep, onRegenerate }) {
       <div id="contenedor-texto" className="div-container nes-container with-title">
         <p className="title">txt</p>
         <div id="typewriter">
-          <p id="markovResults" style={{ whiteSpace: 'pre-line' }}>
-            {text}
+          <p id="markovResults" style={{ '--chars': longestLine(text) }}>
+            {text.split('\n').map((line, i) => (
+              <span key={i} className="verse">
+                {line}
+              </span>
+            ))}
           </p>
         </div>
       </div>
