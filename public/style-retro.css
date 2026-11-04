@@ -135,6 +135,17 @@ body {
     text-indent: -2em;
 }
 
+/* Cuando los versos se parten, más aire entre versos que entre las dos
+   mitades de uno: cada verso se lee como un bloque y la estructura no se
+   pierde con muchas palabras por línea. */
+#markovResults[data-wrap="true"] {
+    line-height: 1.5;
+}
+
+#markovResults[data-wrap="true"] .verse + .verse {
+    margin-top: 0.7em;
+}
+
 .badge {
     font-size: 10px;
 }
