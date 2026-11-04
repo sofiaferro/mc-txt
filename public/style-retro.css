@@ -213,4 +213,11 @@ body {
         width: 75%;
     }
 
+    /* El menú arranca a la altura de la caja de la izquierda, no
+       centrado verticalmente (en la pantalla del texto quedaba a mitad). */
+    .menu-column {
+        align-self: flex-start;
+        padding-top: 88px;
+    }
+
 }
