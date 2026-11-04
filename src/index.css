@@ -4,32 +4,27 @@
   font-size: 4em;
 }
 
-.nes-dialog {
-  overflow-y: auto;
-  position: absolute;
-  right: 0;
-  left: 0;
-  top: 100px;
-  display: block;
-  width: -moz-fit-content;
-  width: -webkit-fit-content;
-  width: fit-content;
-  padding: 1em;
-  margin: auto;
-  color: #000;
-  background: #fff;
-  border: solid;
-      border-top-width: medium;
-      border-right-width: medium;
-      border-bottom-width: medium;
-      border-left-width: medium;
-  width: 90%;
+/* El overlay de react-modal ocupa toda la pantalla (fixed); centrarlo en
+   flex deja cada modal en el medio del viewport, haya scroll o no. Si el
+   contenido no entra, scrollea el diálogo. */
+.ReactModal__Overlay {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
 }
 
-/* auto y no scroll: con scroll fijo, abrir un modal sumaba barras de
-   scroll (en el overlay y en el diálogo) y la UI parpadeaba. */
-.ReactModal__Overlay--after-open {
+.nes-dialog {
   overflow-y: auto;
+  max-height: calc(100vh - 2rem);
+  max-height: calc(100dvh - 2rem);
+  display: block;
+  width: 90%;
+  padding: 1em;
+  color: #000;
+  background: #fff;
+  border: solid medium;
+  outline: none;
 }
 
 #dialog-default {
@@ -65,7 +60,7 @@ h3 {
     align-self: start;
 }
 
-@media screen and (min-width: 400px) {
+@media screen and (min-width: 768px) {
 
   .nes-dialog {
       width: 50%;
