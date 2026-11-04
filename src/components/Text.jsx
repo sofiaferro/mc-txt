@@ -1,17 +1,15 @@
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import '../index.css';
 import Modal from 'react-modal';
 import { pressable } from '../lib/a11y';
-
-// Largo de la línea más larga, para achicar la letra en vez de que
-// el navegador parta la línea en dos (hasta un mínimo legible).
-function longestLine(text) {
-  return Math.max(1, ...(text || '').split('\n').map((line) => line.length));
-}
+import { useFitText } from '../lib/fitText';
 
 export default function Text({ text, setStep, onRegenerate }) {
   const [showNoText, setShowNoText] = useState(false);
   const [showCopied, setShowCopied] = useState(false);
+  const boxRef = useRef(null);
+  const textRef = useRef(null);
+  useFitText(textRef, boxRef, text);
 
   async function copyText() {
     if (!text) {
@@ -53,17 +51,17 @@ export default function Text({ text, setStep, onRegenerate }) {
           </div>
         </div>
       </Modal>
-      <span
-        className="back-link"
-        aria-label="volver a la estructura"
-        {...pressable(() => setStep(2))}
-      >
-        &lt; estructura
-      </span>
       <div id="contenedor-texto" className="div-container nes-container with-title">
         <p className="title">txt</p>
-        <div id="typewriter">
-          <p id="markovResults" style={{ '--chars': longestLine(text) }}>
+        <span
+          className="back-link"
+          aria-label="volver a la estructura"
+          {...pressable(() => setStep(2))}
+        >
+          volver
+        </span>
+        <div id="typewriter" ref={boxRef}>
+          <p id="markovResults" ref={textRef}>
             {text.split('\n').map((line, i) => (
               <span key={i} className="verse">
                 {line}
