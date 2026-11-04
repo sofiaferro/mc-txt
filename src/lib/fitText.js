@@ -1,7 +1,7 @@
 import { useLayoutEffect } from 'react';
 
 const MIN_SIZE = 12;
-const MAX_SIZE = 28;
+const MAX_SIZE = 16;
 
 function fits(el, box, size, wrap) {
   el.style.fontSize = `${size}px`;
