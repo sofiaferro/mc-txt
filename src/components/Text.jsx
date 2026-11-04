@@ -53,6 +53,13 @@ export default function Text({ text, setStep, onRegenerate }) {
           </div>
         </div>
       </Modal>
+      <span
+        className="back-link"
+        aria-label="volver a la estructura"
+        {...pressable(() => setStep(2))}
+      >
+        &lt; estructura
+      </span>
       <div id="contenedor-texto" className="div-container nes-container with-title">
         <p className="title">txt</p>
         <div id="typewriter">

@@ -92,11 +92,6 @@ export default function Content({ setStep, words, lines, setWords, setLines, onC
             placeholder="?????"
           />
         </div>
-        <p className="structure-hint">
-          {isValid(words) && isValid(lines)
-            ? `${words} × ${lines} = poema de ${words * lines} palabras`
-            : 'ej: 3 × 10 = poema de 30 palabras'}
-        </p>
       </div>
       <div className="controls">
         <label>
