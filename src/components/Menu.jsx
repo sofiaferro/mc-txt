@@ -66,15 +66,31 @@ function tipsFor(step) {
   return null;
 }
 
-export default function Menu({ step, setStep }) {
+export default function Menu({ step, setStep, bar = false }) {
   const [showTips, setShowTips] = useState(false);
   const [showReset, setShowReset] = useState(false);
   const [showAbout, setShowAbout] = useState(false);
 
   const tips = tipsFor(step);
 
+  const buttons = (
+    <>
+      {tips && (
+        <button type="button" className="nes-btn is-primary" onClick={() => setShowTips(true)}>
+          tips
+        </button>
+      )}
+      <button type="button" className="nes-btn is-error" onClick={() => setShowReset(true)}>
+        reset
+      </button>
+      <button type="button" className="nes-btn is-success" onClick={() => setShowAbout(true)}>
+        sobre mc-txt
+      </button>
+    </>
+  );
+
   return (
-    <div className="content menu-column">
+    <div className={bar ? undefined : 'content menu-column'}>
       <Modal isOpen={showTips} ariaHideApp={false} className="nes-dialog">
         <div id="dialog-default">
           {tips?.icons}
@@ -136,30 +152,16 @@ export default function Menu({ step, setStep }) {
         </div>
       </Modal>
 
-      <div className="div-container nes-container with-title">
-        <p className="title">menú</p>
-        <div className="toggle-menu">
-          {tips && (
-            <button
-              type="button"
-              className="nes-btn is-primary"
-              onClick={() => setShowTips(true)}
-            >
-              tips
-            </button>
-          )}
-          <button type="button" className="nes-btn is-error" onClick={() => setShowReset(true)}>
-            reset
-          </button>
-          <button
-            type="button"
-            className="nes-btn is-success"
-            onClick={() => setShowAbout(true)}
-          >
-            sobre mc-txt
-          </button>
+      {bar ? (
+        <nav className="menu-bar" aria-label="menú">
+          {buttons}
+        </nav>
+      ) : (
+        <div className="div-container nes-container with-title">
+          <p className="title">menú</p>
+          <div className="toggle-menu">{buttons}</div>
         </div>
-      </div>
+      )}
     </div>
   );
 }

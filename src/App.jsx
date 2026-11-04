@@ -46,8 +46,13 @@ export default function App() {
           }}
         />
       )}
-      {step === 3 && <Text text={text} setStep={setStep} onRegenerate={() => regenerate()} />}
-      {step !== 0 && <Menu step={step} setStep={setStep} />}
+      {step === 3 && (
+        <div className="text-screen">
+          <Menu step={step} setStep={setStep} bar />
+          <Text text={text} setStep={setStep} onRegenerate={() => regenerate()} />
+        </div>
+      )}
+      {step !== 0 && step !== 3 && <Menu step={step} setStep={setStep} />}
     </div>
   );
 }
