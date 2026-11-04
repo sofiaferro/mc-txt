@@ -5,7 +5,7 @@
 }
 
 .nes-dialog {
-  overflow-y: scroll;
+  overflow-y: auto;
   position: absolute;
   right: 0;
   left: 0;
@@ -26,12 +26,10 @@
   width: 90%;
 }
 
+/* auto y no scroll: con scroll fijo, abrir un modal sumaba barras de
+   scroll (en el overlay y en el diálogo) y la UI parpadeaba. */
 .ReactModal__Overlay--after-open {
-  overflow-y: scroll;
-}
-
-.ReactModal__Body--open {
-  overflow-x: hidden;  
+  overflow-y: auto;
 }
 
 #dialog-default {
