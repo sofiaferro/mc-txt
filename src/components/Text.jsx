@@ -1,11 +1,15 @@
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import '../index.css';
 import Modal from 'react-modal';
 import { pressable } from '../lib/a11y';
+import { useFitText } from '../lib/fitText';
 
 export default function Text({ text, setStep, onRegenerate }) {
   const [showNoText, setShowNoText] = useState(false);
   const [showCopied, setShowCopied] = useState(false);
+  const boxRef = useRef(null);
+  const textRef = useRef(null);
+  useFitText(textRef, boxRef, text);
 
   async function copyText() {
     if (!text) {
@@ -49,9 +53,20 @@ export default function Text({ text, setStep, onRegenerate }) {
       </Modal>
       <div id="contenedor-texto" className="div-container nes-container with-title">
         <p className="title">txt</p>
-        <div id="typewriter">
-          <p id="markovResults" style={{ whiteSpace: 'pre-line' }}>
-            {text}
+        <span
+          className="back-link"
+          aria-label="volver a la estructura"
+          {...pressable(() => setStep(2))}
+        >
+          volver
+        </span>
+        <div id="typewriter" ref={boxRef}>
+          <p id="markovResults" ref={textRef}>
+            {text.split('\n').map((line, i) => (
+              <span key={i} className="verse">
+                {line}
+              </span>
+            ))}
           </p>
         </div>
       </div>

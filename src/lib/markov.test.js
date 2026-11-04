@@ -6,6 +6,7 @@ import {
   generateText,
   renderSentence,
   layoutLines,
+  generatePoem,
   seededRng,
 } from './markov';
 
@@ -102,12 +103,32 @@ describe('renderSentence', () => {
 });
 
 describe('layoutLines', () => {
-  it('corta líneas prefiriendo límites de puntuación', () => {
-    const text = 'Uno dos tres, cuatro cinco. Seis siete ocho nueve diez.';
-    const lines = layoutLines(text, 3).split('\n');
-    expect(lines.length).toBeGreaterThan(1);
-    for (const line of lines) {
-      expect(line.split(' ').length).toBeLessThanOrEqual(5);
-    }
+  const text = 'Uno dos tres, cuatro cinco. Seis siete ocho nueve diez.';
+
+  it('arma exactamente las líneas y palabras pedidas', () => {
+    const lines = layoutLines(text, 3, 3).split('\n');
+    expect(lines).toEqual(['Uno dos tres,', 'cuatro cinco. Seis', 'siete ocho nueve.']);
+  });
+
+  it('cierra con punto sin dejar coma colgando', () => {
+    expect(layoutLines(text, 3, 1)).toBe('Uno dos tres.');
+  });
+
+  it('devuelve menos líneas si no alcanza el texto', () => {
+    expect(layoutLines(text, 4, 10).split('\n')).toHaveLength(3);
+  });
+});
+
+describe('generatePoem', () => {
+  it('respeta la estructura y cierra con punto', () => {
+    const model = buildModel(CORPUS);
+    const lines = generatePoem(model, {
+      wordsPerLine: 3,
+      lineCount: 4,
+      rng: seededRng(11),
+    }).split('\n');
+    expect(lines).toHaveLength(4);
+    for (const line of lines) expect(line.split(' ')).toHaveLength(3);
+    expect(lines.at(-1).endsWith('.')).toBe(true);
   });
 });

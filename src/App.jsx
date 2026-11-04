@@ -6,7 +6,7 @@ import Content from './components/Content';
 import Input from './components/Input';
 import Text from './components/Text';
 import Menu from './components/Menu';
-import { generateText, layoutLines } from './lib/markov';
+import { generatePoem } from './lib/markov';
 
 Modal.setAppElement('#root');
 
@@ -20,9 +20,13 @@ export default function App() {
 
   function regenerate(nextModel = model, nextWords = words, nextLines = lines) {
     if (!nextModel) return;
-    const totalWords = Number(nextWords) * Number(nextLines);
-    const generated = generateText(nextModel, { totalWords, anchorTerms: terms });
-    setText(layoutLines(generated, Number(nextWords)));
+    setText(
+      generatePoem(nextModel, {
+        wordsPerLine: Number(nextWords),
+        lineCount: Number(nextLines),
+        anchorTerms: terms,
+      })
+    );
   }
 
   return (

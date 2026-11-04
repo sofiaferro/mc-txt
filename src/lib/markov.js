@@ -207,24 +207,62 @@ export function generateText(
   return chosen.map((c) => renderSentence(c.tokens)).join(' ');
 }
 
-// Envuelve el texto en líneas de ~wordsPerLine palabras, prefiriendo
-// cortar después de un signo de puntuación o fin de oración.
-export function layoutLines(text, wordsPerLine) {
+// Arma exactamente lineCount líneas de wordsPerLine palabras. Corta
+// oraciones a mitad de línea (encabalgamiento) y cierra con punto.
+export function layoutLines(text, wordsPerLine, lineCount) {
   const perLine = Math.max(1, Number(wordsPerLine) || 1);
-  const words = text.split(/\s+/).filter(Boolean);
-  const lines = [];
-  let current = [];
+  const maxLines = Math.max(1, Number(lineCount) || 1);
+  const words = text.split(/\s+/).filter(Boolean).slice(0, perLine * maxLines);
+  if (words.length === 0) return '';
 
-  for (const word of words) {
-    current.push(word);
-    const atBoundary = /[.,;:!?…]$/u.test(word);
-    if ((current.length >= perLine && atBoundary) || current.length >= perLine + 2) {
-      lines.push(current.join(' '));
-      current = [];
+  const last = words.length - 1;
+  words[last] = words[last].replace(/[,;:]+$/u, '');
+  if (!/[.!?…]$/u.test(words[last])) words[last] += '.';
+
+  const lines = [];
+  for (let i = 0; i < words.length; i += perLine) {
+    lines.push(words.slice(i, i + perLine).join(' '));
+  }
+  return lines.join('\n');
+}
+
+// Palabras de enlace: un poema que termina en una de estas queda trunco.
+const WEAK_ENDINGS = new Set([
+  'para', 'por', 'como', 'sobre', 'entre', 'desde', 'hasta', 'pero', 'cual',
+  'cuyo', 'cuya', 'cuyos', 'cuyas', 'donde', 'cuando', 'sino', 'aunque',
+  'hacia', 'según', 'tras', 'durante', 'mediante', 'sus', 'una', 'unos', 'unas',
+]);
+
+// 2: el corte cae justo en un fin de oración. 1: cierra en una palabra
+// con peso. 0: cierra en una palabra de enlace («de.», «para.»).
+function endingScore(text, totalWords) {
+  const words = text.split(/\s+/).filter(Boolean);
+  if (words.length === 0) return -1;
+  const raw = words[Math.min(totalWords, words.length) - 1];
+  if (/[.!?…]$/u.test(raw)) return 2;
+  const word = raw.replace(/[,;:]+$/u, '').toLowerCase();
+  if (word.length <= 3 || WEAK_ENDINGS.has(word)) return 0;
+  return 1;
+}
+
+// Genera varios textos y se queda con el que mejor cierra, así el corte
+// exacto no deja el poema colgando en «de.».
+export function generatePoem(
+  model,
+  { wordsPerLine, lineCount, attempts = 30, rng = Math.random, ...options } = {}
+) {
+  const totalWords = Number(wordsPerLine) * Number(lineCount);
+  let best = '';
+  let bestScore = -2;
+  for (let i = 0; i < attempts && bestScore < 2; i++) {
+    const text = generateText(model, { ...options, rng, totalWords });
+    const score = endingScore(text, totalWords);
+    if (score > bestScore) {
+      best = text;
+      bestScore = score;
     }
   }
-  if (current.length > 0) lines.push(current.join(' '));
-  return lines.join('\n');
+  return layoutLines(best, wordsPerLine, lineCount);
 }
 
 // RNG determinístico para tests (mulberry32).

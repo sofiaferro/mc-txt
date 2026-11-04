@@ -42,6 +42,27 @@ function tipsFor(step) {
       ),
     };
   }
+  if (step === 3) {
+    return {
+      title: 'txt nivel experto',
+      content: (
+        <div className="lists">
+          <ul className="nes-list">
+            <li>cada vez que generás sale un poema distinto: probá varias veces</li>
+            <li>con volver cambiás la estructura sin perder tus inputs</li>
+            <li>si te gusta uno, copialo antes de generar otro</li>
+          </ul>
+        </div>
+      ),
+      icons: (
+        <div className="coin-icons-container">
+          <i className="nes-icon star is-medium"></i>
+          <i className="nes-icon star is-medium"></i>
+          <i className="nes-icon star is-medium"></i>
+        </div>
+      ),
+    };
+  }
   return null;
 }
 
@@ -53,7 +74,7 @@ export default function Menu({ step, setStep }) {
   const tips = tipsFor(step);
 
   return (
-    <div className="content">
+    <div className="content menu-column">
       <Modal isOpen={showTips} ariaHideApp={false} className="nes-dialog">
         <div id="dialog-default">
           {tips?.icons}

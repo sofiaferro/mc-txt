@@ -2,7 +2,6 @@ body {
     font-family: 'Press Start 2P', cursive;
     background-color: white;
     color: black;
-    overflow: scroll;
 }
 
 .snes-jp-logo {
@@ -80,6 +79,73 @@ body {
     width: 100%;
 }
 
+/* «volver» sobre el borde de la caja, como el título «txt» pero a la
+   derecha, para no empujar la UI. La flecha es la misma de nes-radio,
+   espejada. */
+#contenedor-texto {
+    position: relative;
+}
+
+.back-link {
+    position: absolute;
+    top: -0.9em;
+    right: 1rem;
+    padding: 0 0.5rem 0 1.6rem;
+    background-color: #fff;
+    cursor: pointer;
+}
+
+.back-link::before {
+    position: absolute;
+    top: 0;
+    left: 1rem;
+    width: 2px;
+    height: 2px;
+    content: "";
+    color: #212529;
+    box-shadow: 2px 2px,4px 2px,2px 4px,4px 4px,6px 4px,8px 4px,2px 6px,4px 6px,6px 6px,8px 6px,10px 6px,2px 8px,4px 8px,6px 8px,8px 8px,10px 8px,12px 8px,2px 10px,4px 10px,6px 10px,8px 10px,10px 10px,2px 12px,4px 12px,6px 12px,8px 12px,2px 14px,4px 14px;
+    transform: scaleX(-1);
+}
+
+.back-link:hover::before,
+.back-link:focus::before {
+    animation: blink 1s infinite steps(1);
+}
+
+/* La caja ocupa media pantalla y fitText.js ajusta la letra para
+   llenarla. Si no entra ni a 12px, la caja scrollea. */
+#typewriter {
+    height: 50vh;
+    min-height: 240px;
+    overflow-y: auto;
+}
+
+#markovResults {
+    margin: 0;
+    line-height: 1.8;
+}
+
+#markovResults[data-wrap="false"] .verse {
+    white-space: pre;
+}
+
+#markovResults .verse {
+    display: block;
+    padding-left: 2em;
+    text-indent: -2em;
+}
+
+/* Cuando los versos se parten, más aire entre versos que entre las dos
+   mitades de uno: cada verso se lee como un bloque y la estructura no se
+   pierde con muchas palabras por línea. */
+#markovResults[data-wrap="true"] {
+    line-height: 1.5;
+}
+
+#markovResults[data-wrap="true"] .verse + .verse {
+    margin-top: 0.7em;
+}
+
 .badge {
     font-size: 10px;
 }
@@ -146,7 +212,7 @@ body {
     margin-bottom: 20px;
 }
 
-@media screen and (min-width: 400px) {
+@media screen and (min-width: 768px) {
 
     .content {
         width: 40vw;
@@ -157,4 +223,26 @@ body {
         width: 75%;
     }
 
+    /* El menú arranca a la altura de la caja de la izquierda, no
+       centrado verticalmente (en la pantalla del texto quedaba a mitad). */
+    .menu-column {
+        align-self: flex-start;
+        padding-top: 88px;
+    }
+
+}
+/* nes.css 2.3.0 usa border-image-repeat: space solo en Chrome/Safari, y en
+   pantallas de alta densidad eso parte los bordes de inputs y botones en
+   pedazos con líneas blancas. stretch es lo que usa en el resto. */
+.nes-btn,
+.nes-input {
+    border-image-repeat: stretch;
+}
+
+/* En celular, aire vacío al final para que el menú no quede pegado al
+   borde de la pantalla. */
+@media screen and (max-width: 767px) {
+    .App {
+        padding-bottom: 4rem;
+    }
 }
