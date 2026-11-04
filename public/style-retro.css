@@ -113,66 +113,11 @@ body {
     animation: blink 1s infinite steps(1);
 }
 
-/* Pantalla del texto: el poema ocupa todo el alto disponible, con el
-   menú en una fila arriba y los controles abajo. fitText.js ajusta la
-   letra para llenar la caja; si no entra ni a 12px, la caja scrollea. */
-.text-screen {
-    display: flex;
-    flex-direction: column;
-    width: min(90vw, 760px);
-    height: 100vh;
-    height: 100dvh;
-    margin: 0 auto;
-}
-
-.menu-bar {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: flex-end;
-    gap: 0.5rem;
-    padding-top: 1rem;
-}
-
-.menu-bar > .nes-btn {
-    width: auto;
-    margin: 0;
-    padding: 0.25rem 0.75rem;
-    font-size: 12px;
-    white-space: nowrap;
-}
-
-@media screen and (max-width: 399px) {
-    .menu-bar {
-        justify-content: center;
-    }
-
-    .menu-bar > .nes-btn {
-        padding: 0.25rem 0.5rem;
-        font-size: 10px;
-    }
-}
-
-.text-screen > .content {
-    flex: 1;
-    min-height: 0;
-    width: 100%;
-    margin: 0;
-}
-
-.text-screen .title {
-    margin-top: 0.5rem;
-}
-
-.text-screen #contenedor-texto {
-    flex: 1;
-    min-height: 0;
-    display: flex;
-    flex-direction: column;
-}
-
+/* La caja ocupa media pantalla y fitText.js ajusta la letra para
+   llenarla. Si no entra ni a 12px, la caja scrollea. */
 #typewriter {
-    flex: 1;
-    min-height: 120px;
+    height: 50vh;
+    min-height: 240px;
     overflow-y: auto;
 }
 
@@ -275,7 +220,4 @@ body {
         padding-top: 88px;
     }
 
-}
-.App:has(.text-screen) {
-    margin-top: 0;
 }

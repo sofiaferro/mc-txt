@@ -66,31 +66,15 @@ function tipsFor(step) {
   return null;
 }
 
-export default function Menu({ step, setStep, bar = false }) {
+export default function Menu({ step, setStep }) {
   const [showTips, setShowTips] = useState(false);
   const [showReset, setShowReset] = useState(false);
   const [showAbout, setShowAbout] = useState(false);
 
   const tips = tipsFor(step);
 
-  const buttons = (
-    <>
-      {tips && (
-        <button type="button" className="nes-btn is-primary" onClick={() => setShowTips(true)}>
-          tips
-        </button>
-      )}
-      <button type="button" className="nes-btn is-error" onClick={() => setShowReset(true)}>
-        reset
-      </button>
-      <button type="button" className="nes-btn is-success" onClick={() => setShowAbout(true)}>
-        sobre mc-txt
-      </button>
-    </>
-  );
-
   return (
-    <div className={bar ? undefined : 'content menu-column'}>
+    <div className="content menu-column">
       <Modal isOpen={showTips} ariaHideApp={false} className="nes-dialog">
         <div id="dialog-default">
           {tips?.icons}
@@ -152,16 +136,30 @@ export default function Menu({ step, setStep, bar = false }) {
         </div>
       </Modal>
 
-      {bar ? (
-        <nav className="menu-bar" aria-label="menú">
-          {buttons}
-        </nav>
-      ) : (
-        <div className="div-container nes-container with-title">
-          <p className="title">menú</p>
-          <div className="toggle-menu">{buttons}</div>
+      <div className="div-container nes-container with-title">
+        <p className="title">menú</p>
+        <div className="toggle-menu">
+          {tips && (
+            <button
+              type="button"
+              className="nes-btn is-primary"
+              onClick={() => setShowTips(true)}
+            >
+              tips
+            </button>
+          )}
+          <button type="button" className="nes-btn is-error" onClick={() => setShowReset(true)}>
+            reset
+          </button>
+          <button
+            type="button"
+            className="nes-btn is-success"
+            onClick={() => setShowAbout(true)}
+          >
+            sobre mc-txt
+          </button>
         </div>
-      )}
+      </div>
     </div>
   );
 }

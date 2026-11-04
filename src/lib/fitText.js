@@ -41,7 +41,7 @@ function structureKey(text, box) {
 function freshFit(el, box) {
   const single = largestFit(el, box, false);
   const wrapped = largestFit(el, box, true) ?? MIN_SIZE;
-  const useSingle = single !== null && single >= wrapped * 0.7;
+  const useSingle = single !== null && single >= wrapped * 0.8;
   const size = useSingle ? single : wrapped;
   fits(el, box, size, !useSingle);
   return size;
