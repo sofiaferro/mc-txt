@@ -231,3 +231,18 @@ body {
     }
 
 }
+/* nes.css 2.3.0 usa border-image-repeat: space solo en Chrome/Safari, y en
+   pantallas de alta densidad eso parte los bordes de inputs y botones en
+   pedazos con líneas blancas. stretch es lo que usa en el resto. */
+.nes-btn,
+.nes-input {
+    border-image-repeat: stretch;
+}
+
+/* En celular, aire vacío al final para que el menú no quede pegado al
+   borde de la pantalla. */
+@media screen and (max-width: 767px) {
+    .App {
+        padding-bottom: 4rem;
+    }
+}
